@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-        <link rel="shortcut icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Reproductor de Video</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
     <div class="container">
@@ -15,20 +15,15 @@
                     Tu navegador no soporta el reproductor de video.
                 </video>
             </div>
-    
-            <div class="controls-container">
-                <button id="playPauseBtn">Reproducir</button>
-                <input type="range" id="progressBar" value="0" min="0" max="100">
-                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
-                <button id="muteUnmuteBtn">Silenciar</button>
-                <input type="range" id="volumeBar" value="100" min="0" max="100">
-            </div>
         </div>
     
+        <div class="list-toggle-container">
+            <button id="toggleListBtn">Ocultar lista</button>
+        </div>
+
         <div class="video-list-container">
             <div class="list-header">
                 <h2>Videos</h2>
-                <button id="toggleListBtn">Ocultar</button>
             </div>
             <ul id="videoList">
                 </ul>

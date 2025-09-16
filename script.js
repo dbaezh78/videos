@@ -1,109 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. DOM Element Selection ---
+    // --- 1. Selección de elementos del DOM ---
     const videoPlayer = document.getElementById('videoPlayer');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const progressBar = document.getElementById('progressBar');
-    const currentTimeSpan = document.getElementById('currentTime');
-    const durationSpan = document.getElementById('duration');
-    const muteUnmuteBtn = document.getElementById('muteUnmuteBtn');
-    const volumeBar = document.getElementById('volumeBar');
     const videoList = document.getElementById('videoList');
     const toggleListBtn = document.getElementById('toggleListBtn');
     const videoListContainer = document.querySelector('.video-list-container');
 
-    // --- 2. Helper Functions ---
-    function formatTime(seconds) {
-        if (isNaN(seconds) || seconds < 0) {
-            return "0:00";
-        }
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = Math.floor(seconds % 60);
-        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-    }
-
+    // --- 2. Funciones de ayuda ---
     function showErrorMessage(message) {
         if (videoList) {
             videoList.innerHTML = `<li class="error-message">${message}</li>`;
         }
     }
 
-    // --- 3. Player Control Event Listeners ---
-    if (playPauseBtn) {
-        playPauseBtn.addEventListener('click', () => {
-            if (videoPlayer && videoPlayer.paused) {
-                videoPlayer.play();
-                playPauseBtn.textContent = 'Pausar';
-            } else if (videoPlayer) {
-                videoPlayer.pause();
-                playPauseBtn.textContent = 'Reproducir';
-            }
-        });
-    }
-
-    if (videoPlayer) {
-        videoPlayer.addEventListener('timeupdate', () => {
-            if (progressBar && !isNaN(videoPlayer.duration)) {
-                const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
-                progressBar.value = progress;
-            }
-            if (currentTimeSpan) {
-                currentTimeSpan.textContent = formatTime(videoPlayer.currentTime);
-            }
-        });
-
-        videoPlayer.addEventListener('loadedmetadata', () => {
-            if (durationSpan && !isNaN(videoPlayer.duration)) {
-                durationSpan.textContent = formatTime(videoPlayer.duration);
-            }
-        });
-
-        videoPlayer.addEventListener('error', (e) => {
-            console.error('Error de reproducción:', e.message);
-            alert('Error al reproducir el video. El archivo podría estar corrupto o no es compatible.');
-        });
-    }
-
-    if (progressBar) {
-        progressBar.addEventListener('input', () => {
-            if (videoPlayer && !isNaN(videoPlayer.duration)) {
-                const time = (progressBar.value / 100) * videoPlayer.duration;
-                videoPlayer.currentTime = time;
-            }
-        });
-    }
-
-    if (muteUnmuteBtn) {
-        muteUnmuteBtn.addEventListener('click', () => {
-            if (videoPlayer) {
-                videoPlayer.muted = !videoPlayer.muted;
-                muteUnmuteBtn.textContent = videoPlayer.muted ? 'Desmutear' : 'Silenciar';
-            }
-        });
-    }
-
-    if (volumeBar) {
-        volumeBar.addEventListener('input', () => {
-            if (videoPlayer) {
-                videoPlayer.volume = volumeBar.value / 100;
-            }
-        });
-    }
-
-    // --- 4. Logic to Show/Hide Video List ---
+    // --- 3. Lógica para mostrar/ocultar la lista ---
     if (toggleListBtn && videoListContainer) {
         toggleListBtn.addEventListener('click', () => {
             videoListContainer.classList.toggle('video-list-hidden');
-            toggleListBtn.textContent = videoListContainer.classList.contains('video-list-hidden') ? 'Mostrar' : 'Ocultar';
+            toggleListBtn.textContent = videoListContainer.classList.contains('video-list-hidden') ? 'Mostrar lista' : 'Ocultar lista';
         });
     }
 
-    // --- 5. Load and Display Videos from GitHub API ---
+    // --- 4. Cargar y mostrar la lista de videos desde la API de GitHub ---
     async function loadVideos() {
         const apiUrl = 'https://api.github.com/repos/dbaezh78/videos/contents/videos';
 
+        // Para evitar el límite de peticiones de GitHub, puedes usar un Personal Access Token (PAT).
+        // 1. Ve a GitHub > Settings > Developer settings > Personal access tokens.
+        // 2. Genera un nuevo token con permisos de 'repo'.
+        // 3. Pega tu token en la variable de abajo.
+        const githubToken = 'TU_TOKEN_AQUÍ'; // <--- REEMPLAZA ESTO CON TU TOKEN
+
+        const headers = githubToken ? { 'Authorization': `token ${githubToken}` } : {};
 
         try {
-            const response = await fetch(apiUrl);
+            const response = await fetch(apiUrl, { headers: headers });
             
             if (!response.ok) {
                 const errorData = await response.json();
@@ -111,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     
             const data = await response.json();
+    
             const videoFiles = data.filter(file => file.name.endsWith('.mp4'));
     
             if (videoFiles.length === 0) {
@@ -144,8 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (videoPlayer) {
                         videoPlayer.src = item.videoUrl;
                         videoPlayer.load();
-                        videoPlayer.play();
-                        playPauseBtn.textContent = 'Pausar';
+                        videoPlayer.play(); // <-- NUEVO: Inicia la reproducción del video
                     }
                 });
     
@@ -162,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- 6. Function to Generate Thumbnails from the Video ---
+    // --- 5. Función para generar miniaturas desde el video ---
     function generateThumbnail(file) {
         return new Promise((resolve) => {
             const videoUrl = `https://raw.githubusercontent.com/dbaezh78/videos/main/videos/${encodeURIComponent(file.name)}`;
@@ -172,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             video.preload = "metadata";
 
             video.addEventListener('loadedmetadata', () => {
-                video.currentTime = 20; // Capture a frame at 20 seconds
+                video.currentTime = 15;
             });
 
             video.addEventListener('seeked', () => {
