@@ -1,0 +1,131 @@
+body {
+    background-color: #121212;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 30px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 65%;
+    max-width: 900px;
+}
+
+.video-container {
+    width: 100%;
+}
+
+#videoPlayer {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.controls-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #2c2c2c;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* (El resto de los estilos de los controles se mantiene igual) */
+
+.video-list-container {
+    width: 35%;
+    max-width: 400px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #555;
+    padding-bottom: 5px;
+}
+
+.video-list-container h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+#toggleListBtn {
+    background-color: #3b3b3b;
+    color: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#toggleListBtn:hover {
+    background-color: #555;
+}
+
+.video-list-hidden {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#videoList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.video-item {
+    display: flex;
+    align-items: center;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.video-item:hover {
+    background-color: #333;
+}
+
+.video-list-container {
+    width: 35%;
+    max-width: 400px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    
+    /* --- NUEVOS ESTILOS PARA EL CUADRO --- */
+    background-color: #1a1a1a; /* Fondo más oscuro para el cuadro */
+    border-radius: 10px;       /* Bordes redondeados */
+    padding: 20px;            /* Espaciado interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra suave */
+}
+
+
+/* (El resto de los estilos de la lista se mantiene igual) */
