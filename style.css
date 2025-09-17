@@ -79,7 +79,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
     border-bottom: 2px solid #555;
     padding-bottom: 5px;
 }
@@ -94,6 +94,7 @@ body {
     color: #f0f0f0;
     border: none;
     padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -111,8 +112,7 @@ body {
     border-radius: 5px;
     padding: 5px 10px;
     flex-grow: 1;
-    margin: 0 0px;
-    margin-left: 5px;
+    margin: 0 10px;
 }
 
 #searchInput {
@@ -175,6 +175,20 @@ body {
     background-color: #3a77f4;
 }
 
+/* Nuevo estilo para el número del video */
+.video-number {
+    width: 30px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #fff;
+    margin-right: 15px;
+}
+
+
 .video-thumbnail {
     width: 100px;
     height: 60px;
@@ -210,7 +224,7 @@ body {
         margin-top: 250px;
     }
     .video-list-container {
-        margin-top: 0px;
+        margin-top: 15px;
     }
 }
 
@@ -225,9 +239,9 @@ body {
 
 @media (min-width: 992px) {
     .list-toggle-container {
-        margin-top: 510px;
+        margin-top: 550px;
     }
     .video-list-container {
-        margin-top: 0px;
+        margin-top: 15px;
     }
 }

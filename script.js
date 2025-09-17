@@ -100,11 +100,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const thumbnailPromises = videoFiles.map(file => generateThumbnail(file));
             const videoItemsWithThumbnails = await Promise.all(thumbnailPromises);
 
-            videoItemsWithThumbnails.forEach(item => {
+            videoItemsWithThumbnails.forEach((item, index) => {
                 const listItem = document.createElement('li');
                 listItem.className = 'video-item';
                 listItem.dataset.videoUrl = item.videoUrl;
-    
+                
+                // Nuevo elemento para el número
+                const videoNumber = document.createElement('div');
+                videoNumber.className = 'video-number';
+                videoNumber.textContent = index + 1;
+                
                 const thumbnailContainer = document.createElement('div');
                 thumbnailContainer.className = 'video-thumbnail';
                 const thumbnailImg = document.createElement('img');
@@ -117,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 videoTitle.textContent = item.file.name.replace('.mp4', '');
                 infoContainer.appendChild(videoTitle);
     
+                listItem.appendChild(videoNumber);
                 listItem.appendChild(thumbnailContainer);
                 listItem.appendChild(infoContainer);
     
