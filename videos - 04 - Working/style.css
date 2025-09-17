@@ -79,7 +79,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
     border-bottom: 2px solid #555;
     padding-bottom: 5px;
 }
@@ -96,14 +96,19 @@ body {
     padding: 8px 12px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-weight: bolder;
+    text-align: center;
+
 }
 
 #toggleListBtn:hover {
     background-color: #fff;
     color: #1a1a1a;
+    font-weight: bolder;
+    text-align: center;
 }
 
-/* Estilos para el buscador */
+/* Nuevos estilos para el buscador */
 .search-container {
     display: flex;
     align-items: center;
@@ -111,8 +116,7 @@ body {
     border-radius: 5px;
     padding: 5px 10px;
     flex-grow: 1;
-    margin: 0 0px;
-    margin-left: 5px;
+    margin: 0 10px;
 }
 
 #searchInput {
@@ -121,17 +125,12 @@ body {
     color: #f0f0f0;
     outline: none;
     width: 100%;
-    padding: 0 10px;
+    padding: 0;
 }
 
-.search-icon, .clear-icon {
+.search-icon {
     color: #f0f0f0;
     font-size: 1.2em;
-    cursor: pointer;
-}
-
-.clear-icon {
-    display: none; /* Oculto por defecto */
 }
 
 #videoList {
@@ -149,30 +148,11 @@ body {
     border-radius: 8px;
     padding: 10px;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
+    transition: background-color 0.3s;
 }
 
 .video-item:hover {
     background-color: #333;
-}
-
-/* Estilos para el video que se está reproduciendo */
-.video-item.active-video {
-    box-shadow: 0 0 15px 3px #3a77f4;
-    background-color: #2b2b2b; /* Un color ligeramente diferente para el item activo */
-}
-
-/* Marca de luminiscencia para el video activo */
-.video-item.active-video::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 5px;
-    background-color: #3a77f4;
 }
 
 .video-thumbnail {
@@ -207,7 +187,7 @@ body {
 /* Ajustes de posicionamiento responsivo */
 @media (min-width: 384px) {
     .list-toggle-container {
-        margin-top: 250px;
+        margin-top: 217px;
     }
     .video-list-container {
         margin-top: 0px;

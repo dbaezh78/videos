@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleListBtn = document.getElementById('toggleListBtn');
     const videoListContainer = document.querySelector('.video-list-container');
     const searchInput = document.getElementById('searchInput');
-    const clearIcon = document.querySelector('.clear-icon');
 
     let allVideoItems = []; // Para guardar todos los videos cargados
 
@@ -13,19 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function showErrorMessage(message) {
         if (videoList) {
             videoList.innerHTML = `<li class="error-message">${message}</li>`;
-        }
-    }
-    
-    function updateActiveVideo(url) {
-        // Elimina la clase 'active-video' de todos los elementos
-        allVideoItems.forEach(item => {
-            item.classList.remove('active-video');
-        });
-
-        // Agrega la clase 'active-video' al elemento que coincide con la URL
-        const currentItem = allVideoItems.find(item => item.dataset.videoUrl === url);
-        if (currentItem) {
-            currentItem.classList.add('active-video');
         }
     }
 
@@ -37,38 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. Lógica del buscador ---
-    if (searchInput) {
-        // Muestra u oculta el botón de borrar
-        searchInput.addEventListener('input', (event) => {
-            const searchTerm = event.target.value.toLowerCase();
-            if (clearIcon) {
-                clearIcon.style.display = searchTerm.length > 0 ? 'block' : 'none';
-            }
-            allVideoItems.forEach(item => {
-                const videoTitle = item.querySelector('h4').textContent.toLowerCase();
-                if (videoTitle.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    }
-
-    // Lógica para el botón de borrar
-    if (clearIcon) {
-        clearIcon.addEventListener('click', () => {
-            searchInput.value = '';
-            clearIcon.style.display = 'none';
-            // Volver a mostrar todos los videos después de borrar el texto
-            allVideoItems.forEach(item => {
-                item.style.display = 'flex';
-            });
-        });
-    }
-
-    // --- 5. Cargar y mostrar la lista de videos desde la API de GitHub ---
+    // --- 4. Cargar y mostrar la lista de videos desde la API de GitHub ---
     async function loadVideos() {
         const apiUrl = 'https://api.github.com/repos/dbaezh78/videos/contents/videos';
 
@@ -134,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
             if (videoItemsWithThumbnails.length > 0 && videoPlayer) {
                 videoPlayer.src = videoItemsWithThumbnails[0].videoUrl;
-                updateActiveVideo(videoItemsWithThumbnails[0].videoUrl);
             }
 
             // --- Lógica para pasar al siguiente video automáticamente ---
@@ -147,14 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const nextVideoUrl = nextVideoItem.dataset.videoUrl;
                     videoPlayer.src = nextVideoUrl;
                     videoPlayer.play();
-                    updateActiveVideo(nextVideoUrl);
                 }
             });
 
-            // --- Lógica para actualizar el estado del video cuando el usuario interactúa ---
-            videoPlayer.addEventListener('playing', () => {
-                updateActiveVideo(videoPlayer.src);
-            });
+            // --- Lógica del buscador ---
+            if (searchInput) {
+                searchInput.addEventListener('input', (event) => {
+                    const searchTerm = event.target.value.toLowerCase();
+                    allVideoItems.forEach(item => {
+                        const videoTitle = item.querySelector('h4').textContent.toLowerCase();
+                        if (videoTitle.includes(searchTerm)) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
     
         } catch (error) {
             console.error('Error al cargar la lista de videos:', error);
@@ -162,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- 6. Función para generar miniaturas desde el video ---
+    // --- 5. Función para generar miniaturas desde el video ---
     function generateThumbnail(file) {
         return new Promise((resolve) => {
             const videoUrl = `https://raw.githubusercontent.com/dbaezh78/videos/main/videos/${encodeURIComponent(file.name)}`;
