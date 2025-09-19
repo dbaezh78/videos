@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Genera un nuevo token con permisos de 'repo'.
         // 3. Pega tu token en la variable de abajo.
 
+        const githubToken = '';
+
         const headers = githubToken ? { 'Authorization': `token ${githubToken}` } : {};
 
         try {
