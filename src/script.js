@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
     let allVideoItems = [];
-    const LENG_ICON_URL = 'lenglish.png';
+    const LENG_ICON_URL = 'src/lenglish.png';
 
     // --- 2. URL de la API de GitHub para la carpeta de videos ---
     const apiUrl = 'https://api.github.com/repos/dbaezh78/videos/contents/videos';
