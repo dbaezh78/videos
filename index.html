@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Family Listening English</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body>
-    <div class="container">
+<body class="dark-theme"> <div class="container-video">
         <div class="main-content">
             <div class="video-container">
                 <video id="videoPlayer" controls>
@@ -18,6 +17,7 @@
         </div>
     
         <div class="list-toggle-container">
+            <button id="toggleThemeBtn">Tema Claro</button>
             <button id="toggleListBtn">Ocultar lista</button>
         </div>
 
@@ -31,7 +31,15 @@
                 </div>
             </div>
             <ul id="videoList">
-                </ul>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        <div id="loadingBar">
+            <p>Cargando videos...</p>
+            <progress id="loadingProgress" value="0" max="100"></progress>
+            <span id="loadingPercentage">0%</span>
         </div>
     </div>
 
