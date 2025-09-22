@@ -29,6 +29,12 @@ a {
     z-index: 9999;
 }
 
+/* Nuevo estilo para ajustar el margen del contenido principal */
+.content-margin-adjust {
+    /* Calcula el alto del video (ancho * 9/16) + padding + margen */
+    margin-top: calc(100vw * 9 / 16 * 0.9 + 40px);
+}
+
 /* Video Player y lista de videos */
 .main-content {
     position: fixed;
